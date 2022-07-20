@@ -1,4 +1,3 @@
-import json
 from collections import OrderedDict
 
 
@@ -32,29 +31,6 @@ def most_abundant_object_type(objects):
     return most_abundant_type["plural"]
 
 
-input = """
-[
-    {
-        "type": "star",
-        "name": "alpha-centaurus",
-        "redshift": 0
-    },
-    {
-        "type": "nebula",
-        "name": "crab",
-        "redshift": 0
-    },
-    {
-        "type": "galaxy",
-        "name": "sombrero",
-        "redshift": 0
-    }
-]
-"""
-
-print(most_abundant_object_type(json.loads(input)))
-
-
 def furthest_object(objects):
     """
     Returns the furthest object as determined by the amount of redshift
@@ -73,6 +49,3 @@ def furthest_object(objects):
             furthest_object = o
 
     return furthest_object
-
-
-print(furthest_object(json.loads(input)))

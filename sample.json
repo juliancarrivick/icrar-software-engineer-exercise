@@ -1,0 +1,17 @@
+[
+    {
+        "type": "star",
+        "name": "alpha-centaurus",
+        "redshift": 0
+    },
+    {
+        "type": "nebula",
+        "name": "crab",
+        "redshift": 0
+    },
+    {
+        "type": "galaxy",
+        "name": "sombrero",
+        "redshift": 0
+    }
+]
