@@ -1,7 +1,12 @@
 import json
 
 
-def aboundant(objects):
+def most_abundant_object_type(objects):
+    """
+    Returns the plural name of the type of the most abundant object in the
+    given list. If there are equal numbers of types, then types will be
+    prioritised by: star -> galaxy -> supernovae -> frb
+    """
     sum_stars = 0
     sum_galaxies = 0
     sum_supernovae = 0
@@ -48,10 +53,15 @@ input = """
 ]
 """
 
-print(aboundant(json.loads(input)))
+print(most_abundant_object_type(json.loads(input)))
 
 
-def farthest(objects):
+def furthest_object(objects):
+    """
+    Returns the furthest object as determined by the amount of redshift
+    observed (larger is further away). If no objects are passed then
+    None is returned.
+    """
     highest_redshift = None
     for o in objects:
         if highest_redshift is None or o["redshift"] > highest_redshift:
@@ -61,4 +71,4 @@ def farthest(objects):
             return o
 
 
-print(farthest(json.loads(input)))
+print(furthest_object(json.loads(input)))

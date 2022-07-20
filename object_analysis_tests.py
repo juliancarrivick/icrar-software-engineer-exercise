@@ -1,9 +1,9 @@
 import unittest
 
-from object_analysis import aboundant, farthest
+from object_analysis import most_abundant_object_type, furthest_object
 
 
-class TestAboundant(unittest.TestCase):
+class TestMostAbundantObjectType(unittest.TestCase):
     object_index = 0
 
     def test_empty_objects(self):
@@ -12,36 +12,36 @@ class TestAboundant(unittest.TestCase):
         # determine if this is correct or not. Then again, there are a lot
         # of stars and this follows the prioritisation of type (even if
         # every thing is 0)
-        self.assert_aboundant('stars', [])
+        self.assert_most_abundant('stars', [])
 
     def test_unknown_object_types_are_ignored(self):
-        self.assert_aboundant("stars", ["unknown", "unknown", "star"])
+        self.assert_most_abundant("stars", ["unknown", "unknown", "star"])
 
     def test_missing_type_throws(self):
-        self.assertRaises(KeyError, lambda: aboundant([{}]))
+        self.assertRaises(KeyError, lambda: most_abundant_object_type([{}]))
 
     def test_mapping_of_return_value(self):
-        self.assert_aboundant("stars", ["star"])
-        self.assert_aboundant("galaxies", ["galaxy"])
-        self.assert_aboundant("supernovae", ["supernovae"])
-        self.assert_aboundant("frbs", ["frb"])
+        self.assert_most_abundant("stars", ["star"])
+        self.assert_most_abundant("galaxies", ["galaxy"])
+        self.assert_most_abundant("supernovae", ["supernovae"])
+        self.assert_most_abundant("frbs", ["frb"])
 
     def test_prioritisation_of_type(self):
-        self.assert_aboundant("stars", ["star", "galaxy"])
-        self.assert_aboundant("stars", ["star", "supernovae"])
-        self.assert_aboundant("stars", ["star", "frbs"])
-        self.assert_aboundant("stars", ["galaxy", "star"])
-        self.assert_aboundant("galaxies", ["galaxy", "supernovae"])
-        self.assert_aboundant("galaxies", ["galaxy", "frbs"])
-        self.assert_aboundant("stars", ["supernovae", "star"])
-        self.assert_aboundant("galaxies", ["supernovae", "galaxy"])
-        self.assert_aboundant("supernovae", ["supernovae", "frb"])
-        self.assert_aboundant("stars", ["frb", "star"])
-        self.assert_aboundant("galaxies", ["frb", "galaxy"])
-        self.assert_aboundant("supernovae", ["frb", "supernovae"])
+        self.assert_most_abundant("stars", ["star", "galaxy"])
+        self.assert_most_abundant("stars", ["star", "supernovae"])
+        self.assert_most_abundant("stars", ["star", "frbs"])
+        self.assert_most_abundant("stars", ["galaxy", "star"])
+        self.assert_most_abundant("galaxies", ["galaxy", "supernovae"])
+        self.assert_most_abundant("galaxies", ["galaxy", "frbs"])
+        self.assert_most_abundant("stars", ["supernovae", "star"])
+        self.assert_most_abundant("galaxies", ["supernovae", "galaxy"])
+        self.assert_most_abundant("supernovae", ["supernovae", "frb"])
+        self.assert_most_abundant("stars", ["frb", "star"])
+        self.assert_most_abundant("galaxies", ["frb", "galaxy"])
+        self.assert_most_abundant("supernovae", ["frb", "supernovae"])
 
-    def assert_aboundant(self, expected: str, object_types: list):
-        self.assertEqual(expected, aboundant(
+    def assert_most_abundant(self, expected: str, object_types: list):
+        self.assertEqual(expected, most_abundant_object_type(
             [self.create_object(type) for type in object_types]))
 
     def create_object(self, type: str):
@@ -53,20 +53,20 @@ class TestAboundant(unittest.TestCase):
         }
 
 
-class TestFarthest(unittest.TestCase):
+class TestFurthestObject(unittest.TestCase):
     def test_no_objects(self):
-        self.assertEqual(None, farthest([]))
+        self.assertEqual(None, furthest_object([]))
 
     def test_highest_redshift_object_is_returned(self):
         objects = self.create_redshifted_objects(2, 3, 1)
-        self.assertIs(objects[1], farthest(objects))
+        self.assertIs(objects[1], furthest_object(objects))
 
     def test_first_instance_of_highest_redshift_is_returned(self):
         objects = self.create_redshifted_objects(1, 2, 2)
-        self.assertIs(objects[1], farthest(objects))
+        self.assertIs(objects[1], furthest_object(objects))
 
     def test_missing_redshift_throws(self):
-        self.assertRaises(KeyError, lambda: farthest([{}]))
+        self.assertRaises(KeyError, lambda: furthest_object([{}]))
 
     def create_redshifted_objects(self, *redshifts):
         return [self.create_redshifted_object(r) for r in redshifts]
