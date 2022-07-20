@@ -66,7 +66,7 @@ class TestFurthestObject(unittest.TestCase):
         self.assertIs(objects[1], furthest_object(objects))
 
     def test_missing_redshift_throws(self):
-        self.assertRaises(KeyError, lambda: furthest_object([{}]))
+        self.assertRaises(AssertionError, lambda: furthest_object([{}]))
 
     def create_redshifted_objects(self, *redshifts):
         return [self.create_redshifted_object(r) for r in redshifts]
