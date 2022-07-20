@@ -1,3 +1,6 @@
+import json
+
+
 def aboundant(objects):
     sum_stars = 0
     sum_galaxies = 0
@@ -24,6 +27,7 @@ def aboundant(objects):
     if sum_frbs >= sum_stars and sum_frbs >= sum_galaxies and sum_frbs >= sum_supernovae:
         return 'frbs'
 
+
 input = """
 [
     {
@@ -44,7 +48,6 @@ input = """
 ]
 """
 
-import json
 print(aboundant(json.loads(input)))
 
 
@@ -56,5 +59,6 @@ def farthest(objects):
     for o in objects:
         if o["redshift"] == highest_redshift:
             return o
+
 
 print(farthest(json.loads(input)))
